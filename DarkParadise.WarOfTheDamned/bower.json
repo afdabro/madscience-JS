@@ -1,0 +1,24 @@
+{
+  "name": "war_of_the_damned",
+  "description": "Dark Paradise: War of the Damned",
+  "main": "public/main.js",
+  "authors": [
+    "afdabro"
+  ],
+  "license": "SEE LICENSE IN license.md",
+  "moduleType": [
+    "es6"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "babylonjs": "~2.2.0"
+  }
+}
