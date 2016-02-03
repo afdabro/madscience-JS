@@ -14,11 +14,13 @@ var tsc = require('gulp-typescript');
 var tslint = require('gulp-tslint');
 var sourcemaps = require('gulp-sourcemaps');
 var del = require('del');
+var uglify = require('gulp-uglify');
+var through = require('through2');
+var babel = require("gulp-babel");
+var rename = require("gulp-rename");
 var Config = require('./gulpfile.config');
 var config = new Config();
 var tsProject = tsc.createProject('tsconfig.json');
-var uglify = require('gulp-uglify');
-var through = require('through2');
 
 /**
  * Start a local express server for development
@@ -83,7 +85,8 @@ gulp.task('compile-ts', function () {
 
     var tsResult = gulp.src(sourceTsFiles)
         .pipe(sourcemaps.init())
-        .pipe(tsc(tsProject));
+        .pipe(tsc(tsProject))
+        .pipe(babel());
 
     tsResult.dts.pipe(gulp.dest(config.tsOutputPath));
     return tsResult.js
@@ -101,7 +104,6 @@ gulp.task('clean-ts', function () {
         '!' + config.tsOutputPath + '/lib'
     ];
 
-    // delete the files
     del(typeScriptGenFiles).then(paths => {
         console.log('Deleted files and folders:\n', paths.join('\n'));
         });
@@ -175,6 +177,17 @@ gulp.task('copy-bower', function() {
 
         gulp.src(config.bowerPath + '/' + dependencies[dependency] + '/dist/*.d.ts')
             .pipe(gulp.dest(config.typings + '/' + dependencies[dependency]));
+    }
+});
+
+/**
+ * Copy specific files from source to destination.
+ */
+gulp.task('copy-files', function() {
+    for(var i = 0; i < config.copyFiles.length; i++)
+    {
+        gulp.src(config.copyFiles[i].src + config.copyFiles[i].name)
+        .pipe(gulp.dest(config.copyFiles[i].dest));
     }
 });
 

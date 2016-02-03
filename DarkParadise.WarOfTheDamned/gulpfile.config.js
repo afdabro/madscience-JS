@@ -34,6 +34,9 @@ var GulpConfig = (function () {
         // Bower settings
         this.bower = require("./bower.json");
         this.bowerPath = './bower_components';
+
+        // Copy files settings
+        this.copyFiles = require("./configs/copy.config.json");
     }
     return gulpConfig;
 })();
