@@ -31,12 +31,20 @@ var GulpConfig = (function () {
         this.browserSyncPort = 4000;
         this.browserSyncBrowsers = ['google-chrome'];
 
-        // Bower settings
-        this.bower = require("./bower.json");
-        this.bowerPath = './bower_components';
-
         // Copy files settings
-        this.copyFiles = require("./configs/copy.config.json");
+        this.copyFiles = buildCopyConfig();
+    }
+
+    function buildCopyConfig()
+    {
+        var copyConfig = require("./configs/copy.config.json");
+        var jsonString = JSON.stringify(copyConfig.files);
+        var replacedNode = jsonString.replace(new RegExp("{{node_modules_path}}", 'g'), copyConfig.node_modules_path);
+        var replacedBower = replacedNode.replace(new RegExp("{{bower_components_path}}", 'g'), copyConfig.bower_components_path);
+        var replacedApp = replacedBower.replace(new RegExp("{{app_vendor_path}}", 'g'), copyConfig.app_vendor_path);
+        var replacedTypings = replacedApp.replace(new RegExp("{{typings_vendor_path}}", 'g'), copyConfig.typings_vendor_path);
+        console.log(replacedTypings);
+        return JSON.parse(replacedTypings);
     }
     return gulpConfig;
 })();

@@ -161,26 +161,6 @@ gulp.task('clean-build', ['clean-ts'], function() {
 });
 
 /**
- * Copy bower dist package files into appropriate folders.
- * Must be run every time a new dependency is added in bower.
- *
- * NOTE: copy-bower task only copies js and d.ts files
- * TODO: Create a clean-bower task for upgrading packages
- * TODO: Check tsd.d.ts file for type reference and append if not found
- */
-gulp.task('copy-bower', function() {
-    var dependencies = Object.keys(config.bower.dependencies);
-    for(var dependency in dependencies)
-    {
-        gulp.src(config.bowerPath + '/' + dependencies[dependency] + '/dist/*.js')
-            .pipe(gulp.dest(config.vendorPath + '/' + dependencies[dependency]));
-
-        gulp.src(config.bowerPath + '/' + dependencies[dependency] + '/dist/*.d.ts')
-            .pipe(gulp.dest(config.typings + '/' + dependencies[dependency]));
-    }
-});
-
-/**
  * Copy specific files from source to destination.
  */
 gulp.task('copy-files', function() {

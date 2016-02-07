@@ -1,3 +1,12 @@
-[
-  { "src" : "./node_modules/angular2/bundles/", "dest" : "./src/app/vendor/angular2", "name" : "angular2-polyfills.js" }
+{
+  "node_modules_path" : "./node_modules",
+  "bower_components_path" : "./bower_components",
+  "app_vendor_path" : "./src/app/vendor",
+  "typings_vendor_path" : "./tools/typings/vendor",
+"files" : [
+{"src": "{{node_modules_path}}/angular2/bundles/", "dest": "{{app_vendor_path}}/angular2", "name" : "angular2-polyfills.min.js"},
+{"src": "{{bower_components_path}}/babylonjs/dist/", "dest" : "{{app_vendor_path}}/babylonjs", "name": "babylon.2.2.js"},
+{"src" : "{{bower_components_path}}/babylonjs/dist/", "dest": "{{typings_vendor_path}}/babylonjs", "name": "babylon.2.2.d.ts" },
+{"src": "{{bower_components_path}}/pepjs/dist/", "dest": "{{app_vendor_path}}/pepjs", "name": "pep.min.js" }
 ]
+}
